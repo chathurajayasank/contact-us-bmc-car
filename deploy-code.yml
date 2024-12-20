@@ -1,3 +1,4 @@
+---
 - hosts: webservers
   become: yes
   tasks:
@@ -5,16 +6,16 @@
       file:
         path: /var/www/contact-us-bmc-car
         state: directory
-        owner: www-data
-        group: www-data
+        owner: apache
+        group: apache
         mode: '0755'
 
     - name: Copy build files to the deployment directory
       copy:
         src: ./build/
         dest: /var/www/contact-us-bmc-car
-        owner: www-data
-        group: www-data
+        owner: apache
+        group: apache
         mode: '0644'
 
     - name: Restart Apache
