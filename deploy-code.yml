@@ -1,5 +1,3 @@
----
-# Playbook to deploy the application to localhost
 - hosts: webservers
   become: yes
   tasks:
@@ -19,7 +17,7 @@
         group: www-data
         mode: '0644'
 
-    - name: Restart Apache (or Nginx)
+    - name: Restart Apache
       service:
-        name: apache2  # Change to nginx if using Nginx
+        name: httpd
         state: restarted
