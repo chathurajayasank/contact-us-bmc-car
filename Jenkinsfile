@@ -27,8 +27,14 @@ pipeline {
             steps {
                 script {
                     echo 'Running Ansible playbook for deployment...'
+                      // Write the inventory file for localhost
+                    writeFile file: 'inventory', text: '''
+                    [webservers]
+                    localhost ansible_connection=local
+                    '''
+        
                     // Run the Ansible playbook
-                    sh 'ansible-playbook -i localhost, -c local deploy-code.yml --become'
+                    sh 'ansible-playbook -i inventory deploy-code.yml --become'
                 }
             }
         }
