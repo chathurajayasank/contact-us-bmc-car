@@ -1,0 +1,25 @@
+---
+# Playbook to deploy the application to localhost
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Ensure deployment directory exists
+      file:
+        path: /var/www/contact-us-bmc-car
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Copy build files to the deployment directory
+      copy:
+        src: ./build/
+        dest: /var/www/contact-us-bmc-car
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Restart Apache (or Nginx)
+      service:
+        name: apache2  # Change to nginx if using Nginx
+        state: restarted
